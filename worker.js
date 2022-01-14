@@ -85,13 +85,13 @@ const sendAlert = new CronJob("0,20,40 * * * *", async function () {
       }  
     });
 
-    await client.close();
-
   } catch (error) {
 
-    await client.close();
-    
     console.error("Get alert error", error);
+
+  } finally {
+
+    await client.close();
   }
 
 });
