@@ -28,12 +28,13 @@ alertQueue.process(async function (job, done) {
   .send(msg)
   .then(() => {
     console.log('Email sent')
-    done();
   })
   .catch((error) => {
     console.error(error)
-    done();
   })
+  .finally(
+    done()
+  );
 });
 
 // 

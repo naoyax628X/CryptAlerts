@@ -56,18 +56,18 @@ exports.DeleteAlert = async function (req, res) {
       const alertsCollection = database.collection("Alert");
 
       await alertsCollection.deleteMany(query);
-
-      await mongodbClient.close();
   
-    res.send({ success: true, message: "Alert deleted" });
+      res.send({ success: true, message: "Alert deleted" });
   
   } catch (error) {
 
     console.error("Delete alert error", error);
-
-    await mongodbClient.close();
     
     res.status(500).json(errorObject);
+
+  } finally {
+
+    await mongodbClient.close();
   }
 
 };
@@ -127,17 +127,17 @@ exports.CreateAlert = async function (req, res) {
 
       await alertsCollection.insertMany(documents);
   
-      await client.close();
-
       res.send({ success: true, message: "Alert created" });
   
   } catch (error) {
  
     console.error("Create alert error", error);
 
-    await client.close();
-
     res.status(500).json(errorObject);
+  
+  } finally {
+
+    await client.close();
   }
 };
 
@@ -174,17 +174,17 @@ exports.GetAlerts = async function (req, res) {
       results.push(jsonObj);
     }
 
-    await client.close();
-
     res.send({ success: true, alerts: results });
 
   } catch (error) {
   
     console.error("Get alert error", error);
 
-    await client.close();
-    
     res.status(500).json(errorObject);
+  
+  } finally {
+
+    await client.close();
   }
 };
 
